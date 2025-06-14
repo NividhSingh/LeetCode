@@ -23,17 +23,13 @@ public:
                 }
             }
         }
-        vector<int> vec; 
+        vector<int> vec (stk.size()); 
 
-
-        // Convert the stack to a vector
-        while (!stk.empty()) {
-            vec.push_back(stk.top());
+        for (int i = vec.size() - 1; i >= 0; i--) {
+            vec[i] = stk.top();
             stk.pop();
         }
 
-    // If you need the order to be the same as the stack's insertion order, you can reverse the vector
-    std::reverse(vec.begin(), vec.end());
         return vec;
     }
 };
