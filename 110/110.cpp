@@ -1,17 +1,31 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    static bool compare(const vector<int>& a, const vector<int>& b) {
-        return a[0] < b[0];
+    bool isBalanced(TreeNode* root) {
+        int l = lengths(root);
+        return l != -1;
     }
-    bool canAttendMeetings(vector<vector<int>>& intervals) {
-        sort(intervals.begin(), intervals.end(), compare);
-        int end = -1;
-        for (auto interval: intervals) {
-            if (interval[0] < end) {
-                return false;
-            }
-            end = interval[1];
+    
+    int lengths(TreeNode* root) {
+        if (!root) {
+            return 0;
         }
-        return true;
+        int leftLength = lengths(root->left);
+        int rightLength = lengths(root->right);
+        // cout << root->val << " " << leftLength << " " << rightLength << endl;;
+        if (leftLength == -1 || rightLength == -1 || abs(leftLength - rightLength) > 1) {
+            return -1;
+        }
+        return 1 + max(leftLength, rightLength);
     }
 };
